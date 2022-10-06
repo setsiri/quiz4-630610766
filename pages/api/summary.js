@@ -2,6 +2,15 @@ export default function summaryRoute(req, res) {
   if (req.method === "GET") {
     //check authentication
     //return res.status(403).json({ ok: false, message: "Permission denied" });
+    if (isAdmin) {
+      const user = checkToken(req);
+      if (!user || !user.isAdmin) {
+        return res.status(403).json({
+          ok: false,
+          message: "Permission denied",
+        });
+      }
+    }
     //compute DB summary
     //return response
   } else {

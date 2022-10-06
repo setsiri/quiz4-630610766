@@ -5,6 +5,12 @@ export default function depositRoute(req, res) {
     //check authentication
     const user = checkToken(req);
     // return res.status(403).json({ ok: false, message: "You do not have permission to deposit" });
+    if (!user) {
+      return res.status(403).json({
+        ok: false,
+        message: "You do not have permission to deposit",
+      });
+    }
 
     const amount = req.body.amount;
     //validate body
